@@ -11,7 +11,7 @@
 #' @importFrom shiny exprToFunction
 #' @author Jeff Allen \email{jeff@@trestletech.com}
 #' @export
-renderHtable <- function(expr, env = parent.frame(), 
+renderHtable <- function(expr, readOnly=c(), contextMenu=FALSE, env = parent.frame(), 
                         quoted = FALSE){
   func <- exprToFunction(expr, env, quoted)
   
@@ -41,7 +41,9 @@ renderHtable <- function(expr, env = parent.frame(),
         data = data,
         types = types,
         headers = colnames(data),
-        cycle = .cycleCount[[shinysession$token]][[name]]
+        cycle = .cycleCount[[shinysession$token]][[name]],
+        readOnly = colnames(data) %in% readOnly,
+        contextMenu = contextMenu
       ))
     } else{
       # input stores the state captured currently on the client. Just send the 

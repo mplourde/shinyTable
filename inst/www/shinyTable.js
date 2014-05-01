@@ -54,7 +54,8 @@ $.extend(shinyTableOutputBinding, {
       // One type for each column, data.frame-like object.
       for (var i = 0; i < Object.size(htable.data); i++){
         cols.push({
-          type: htable.types[i]
+          type: htable.types[i],
+          readOnly: htable.readOnly[i]
         });
       }  
     } else if (typeof htable.types === 'string'){
@@ -92,7 +93,8 @@ $.extend(shinyTableOutputBinding, {
       columnSorting: false,
       columns: cols,
       minRows: $(el).data('min-rows'),
-      minCols: $(el).data('min-cols')
+      minCols: $(el).data('min-cols'),
+      contextMenu: htable.contextMenu
     };
     
     if ($(el).data('width')){
